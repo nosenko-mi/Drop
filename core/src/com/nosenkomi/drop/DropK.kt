@@ -54,6 +54,7 @@ class DropK : ApplicationAdapter() {
             batch!!.draw(dropImage, raindrop.x, raindrop.y)
         }
         batch!!.end()
+
         handleTouch()
         handleKeyPressed()
         if (bucket!!.x < 0) bucket!!.x = 0f
