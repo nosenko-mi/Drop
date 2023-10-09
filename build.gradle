@@ -1,5 +1,6 @@
 buildscript {
-    
+    ext.kotlin_version = '1.9.10'
+
 
     repositories {
         mavenLocal()
@@ -13,10 +14,11 @@ buildscript {
         classpath 'org.gretty:gretty:3.0.7'
         classpath 'com.android.tools.build:gradle:7.2.2'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.19'
-        
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
     }
 }
+apply plugin: 'kotlin'
 
 allprojects {
     apply plugin: "eclipse"
@@ -71,36 +73,36 @@ project(":android") {
     }
 }
 
-project(":ios") {
-    apply plugin: "java-library"
-    apply plugin: "robovm"
+//project(":ios") {
+//    apply plugin: "java-library"
+//    apply plugin: "robovm"
+//
+//
+//    dependencies {
+//        implementation project(":core")
+//        api "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
+//        api "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
+//        api "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+//        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+//
+//    }
+//}
 
-
-    dependencies {
-        implementation project(":core")
-        api "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
-        api "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
-        api "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
-        
-    }
-}
-
-project(":html") {
-    apply plugin: "java-library"
-    apply plugin: "gwt"
-    apply plugin: "war"
-    apply plugin: "org.gretty"
-
-
-    dependencies {
-        implementation project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-        
-    }
-}
+//project(":html") {
+//    apply plugin: "java-library"
+//    apply plugin: "gwt"
+//    apply plugin: "war"
+//    apply plugin: "org.gretty"
+//
+//
+//    dependencies {
+//        implementation project(":core")
+//        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+//        api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+//        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+//
+//    }
+//}
 
 project(":core") {
     apply plugin: "java-library"
@@ -109,5 +111,21 @@ project(":core") {
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
